@@ -33,6 +33,7 @@ variable "controllers" {
     name   = string
     mac    = string
     domain = string
+    # arch   = string
   }))
   description = <<EOD
 List of controller machine details (unique name, identifying MAC address, FQDN)
@@ -45,12 +46,13 @@ variable "workers" {
     name   = string
     mac    = string
     domain = string
+    arch   = string
   }))
   description = <<EOD
 List of worker machine details (unique name, identifying MAC address, FQDN)
 [
-  { name = "node2", mac = "52:54:00:b2:2f:86", domain = "node2.example.com"},
-  { name = "node3", mac = "52:54:00:c3:61:77", domain = "node3.example.com"}
+  { name = "node2", mac = "52:54:00:b2:2f:86", domain = "node2.example.com", arch="x86_64"},
+  { name = "node3", mac = "52:54:00:c3:61:77", domain = "node3.example.com", arch="aarch64"}
 ]
 EOD
   default     = []
@@ -165,3 +167,16 @@ variable "cluster_domain_suffix" {
   default     = "cluster.local"
 }
 
+# Limitation: This currently applies to all controller nodes. In order to support multi-arch controllers,
+# refactoring is required. This works for now since my plan is to have RPIs for controller nodes.
+
+variable "arch" {
+  type        = string
+  description = "Container architecture (x86_64 or aarch64)"
+  default     = "x86_64"
+
+  validation {
+    condition     = var.arch == "x86_64" || var.arch == "aarch64"
+    error_message = "The arch must be x86_64 or aarch64."
+  }
+}

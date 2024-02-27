@@ -13,6 +13,7 @@ module "workers" {
   name   = var.workers[count.index].name
   mac    = var.workers[count.index].mac
   domain = var.workers[count.index].domain
+  arch   = var.workers[count.index].arch
 
   # configuration
   kubeconfig            = module.bootstrap.kubeconfig-kubelet

@@ -43,6 +43,17 @@ variable "domain" {
   description = "Fully qualified domain name (e.g. node1.example.com)"
 }
 
+variable "arch" {
+  type        = string
+  description  = "Architecture of the platform for the worker. Supported: [x86_64, aarch64]"
+  default     = "x86_64"
+
+  validation {
+    condition     = var.arch == "x86_64" || var.arch == "aarch64"
+    error_message = "The arch must be x86_64 or aarch64."
+  }
+}
+
 # configuration
 
 variable "kubeconfig" {
