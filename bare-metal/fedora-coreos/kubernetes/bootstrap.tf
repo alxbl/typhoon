@@ -10,6 +10,7 @@ module "bootstrap" {
   pod_cidr               = var.pod_cidr
   service_cidr           = var.service_cidr
   components             = var.components
+  container_images       = var.container_images
 }
 
 
