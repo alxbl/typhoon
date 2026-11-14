@@ -93,6 +93,16 @@ variable "kernel_args" {
   default     = []
 }
 
+variable "arch" {
+  type        = string
+  description = "Machine architecture (amd64 or arm64)"
+  default     = "amd64"
+  validation {
+    condition     = contains(["amd64", "arm64"], var.arch)
+    error_message = "The arch must be amd64 or arm64."
+  }
+}
+
 # unofficial, undocumented, unsupported
 
 variable "service_cidr" {

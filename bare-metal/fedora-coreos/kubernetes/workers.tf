@@ -26,4 +26,5 @@ module "workers" {
   cached_install = var.cached_install
   install_disk   = var.install_disk
   kernel_args    = var.kernel_args
+  arch           = var.workers[count.index].arch
 }

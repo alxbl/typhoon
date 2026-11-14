@@ -21,3 +21,10 @@ Typhoon distributes upstream Kubernetes, architectural conventions, and cluster 
 
 Please see the [official docs](https://typhoon.psdn.io) and the bare-metal [tutorial](https://typhoon.psdn.io/fedora-coreos/bare-metal/).
 
+
+## Fork Modifications
+
+### Bare Metal Fedora CoreOS
+
+* `controller_arch` selects the controller architecture (`amd64` or `arm64`); all controllers share it
+* Workers take an optional `arch` (`amd64` or `arm64`), so workers can be mixed architecture

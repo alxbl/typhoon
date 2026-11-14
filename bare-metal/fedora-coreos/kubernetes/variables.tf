@@ -45,15 +45,21 @@ variable "workers" {
     name   = string
     mac    = string
     domain = string
+    arch   = optional(string, "amd64")
   }))
   description = <<EOD
-List of worker machine details (unique name, identifying MAC address, FQDN)
+List of worker machine details (unique name, identifying MAC address, FQDN, optional architecture amd64 or arm64)
 [
   { name = "node2", mac = "52:54:00:b2:2f:86", domain = "node2.example.com"},
-  { name = "node3", mac = "52:54:00:c3:61:77", domain = "node3.example.com"}
+  { name = "node3", mac = "52:54:00:c3:61:77", domain = "node3.example.com", arch = "arm64"}
 ]
 EOD
   default     = []
+
+  validation {
+    condition     = alltrue([for w in var.workers : contains(["amd64", "arm64"], w.arch)])
+    error_message = "Each worker arch must be amd64 or arm64."
+  }
 }
 
 variable "snippets" {
@@ -125,6 +131,16 @@ variable "kernel_args" {
   type        = list(string)
   description = "Additional kernel arguments to provide at PXE boot."
   default     = []
+}
+
+variable "controller_arch" {
+  type        = string
+  description = "Controller node(s) architecture (amd64 or arm64)"
+  default     = "amd64"
+  validation {
+    condition     = contains(["amd64", "arm64"], var.controller_arch)
+    error_message = "The controller_arch must be amd64 or arm64."
+  }
 }
 
 # advanced
