@@ -160,6 +160,12 @@ variable "components" {
   default = null
 }
 
+variable "container_image_overrides" {
+  type        = map(string)
+  description = "Container images that replace the defaults of terraform-render-bootstrap (e.g. { cilium_agent = \"quay.io/cilium/cilium:v1.18.14\" })"
+  default     = {}
+}
+
 variable "service_account_issuer" {
   type        = string
   description = "kube-apiserver service account token issuer (used as an identifier in 'iss' claims)"

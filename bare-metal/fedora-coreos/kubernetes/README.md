@@ -28,3 +28,4 @@ Please see the [official docs](https://typhoon.psdn.io) and the bare-metal [tuto
 
 * `controller_arch` selects the controller architecture (`amd64` or `arm64`); all controllers share it
 * Workers take an optional `arch` (`amd64` or `arm64`), so workers can be mixed architecture
+* `container_image_overrides` replaces individual component images and keeps the other defaults
